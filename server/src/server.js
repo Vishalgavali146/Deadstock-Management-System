@@ -1,40 +1,41 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import bodyParser from "body-parser";
+
 import cookieParser from "cookie-parser";
 import connectDb from "./DB/db.js";
 
-dotenv.config({
-    path: "./.env"
-});
+import LoginRouter from "./Routes/RegisterRoute.js"
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
     extended: true
 }))
-app.use(express.json());
 app.use(cookieParser());
 
 const corsOption = {
-  origin: "http://localhost:3000",
+    origin: process.env.VITE_URL,
     methods: "GET, POST, DELETE, PATCH, PUT",
     optionsSuccessStatus: 200,
-  credentials: true, 
+    credentials: true, 
 };
 
 app.use(cors(corsOption));
 
-if (!process.env.MONGODB_URI) {
-    console.error("MONGODB_URI environment variable is not defined in .env file");
+if (!process.env.MONGO_URI) {
+    console.error("MONGO_URI environment variable is not defined in .env file");
     process.exit(1);
 }
 app.get("/", (req, res) => {
   res.send("Hello, MongoDB Atlas!");
 });
+
+app.use(LoginRouter);
 
 connectDb()
 .then(() => {

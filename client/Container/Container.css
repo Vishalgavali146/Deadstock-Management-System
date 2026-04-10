@@ -1,0 +1,232 @@
+.box-img {
+  height: 130px;
+  width: 220px;
+  max-width: 260px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7%;
+  border: 2px solid white;
+}
+
+.container {
+  margin: 10px;
+  border-radius: 7%;
+  position: relative;
+  width: fit-content;
+  padding: 10px;
+  cursor: pointer;
+  background-color: rgb(45, 45, 133);
+}
+
+.each-card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  /* background-color: #f8f9fa; */
+  margin: 100px;
+  margin-top: 100px;
+  margin-bottom: 10px;
+  gap: 0px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 260px calc(100% - 260px);
+  background-color: #f5f5f5;
+}
+
+.search-bar-container {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.form-container {
+  width: 100%;
+  background: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-content {
+  margin-left: 30px;
+  margin-right: 30px;
+  /* margin-top: 80px; */
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.tab.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.last-row {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.last-column {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.tab.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.second-home-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 20px;
+}
+
+.sidebar-container {
+  grid-column: 1;
+  width: 100%;
+}
+
+.content-container {
+  grid-column: 2;
+}
+
+.third-page {
+  display: grid;
+  grid-template-columns: 260px calc(100%-260px);
+}
