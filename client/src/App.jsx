@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { useAuth } from "../Provider/AuthContext";
 import LoginForm from "../Container/LoginPage.jsx";
 import SignUp from "../Container/SignUp.jsx";
+import { RequisitionProvider } from "../Provider/RequisitionContext.jsx";
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
   const { isAuthenticated, decoded } = useAuth();
@@ -33,6 +34,7 @@ const PublicRoute = ({ element }) => {
 
 function App() {
   return (
+    <RequisitionProvider>
     <ChakraProvider>
       <BrowserRouter>
       <Routes>
@@ -45,9 +47,15 @@ function App() {
             element={<PublicRoute element={<SignUp />} />}
           />
 
+          <Route
+            path="/Dashboard"
+            element={<ProtectedRoute element={<SecondHome />} />}
+          />
+
       </Routes>
       </BrowserRouter>
     </ChakraProvider>
+    </RequisitionProvider>
   );
 }
 
