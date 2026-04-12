@@ -6,6 +6,10 @@ import { useAuth } from "../Provider/AuthContext";
 import LoginForm from "../Container/LoginPage.jsx";
 import SignUp from "../Container/SignUp.jsx";
 import { RequisitionProvider } from "../Provider/RequisitionContext.jsx";
+import SecondHome from "../Container/SecondHome.jsx";
+import ThirdHome from "../Container/ThirdHome.jsx";
+import HistoryCard from "../Container/HistoryCard.jsx";
+import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
   const { isAuthenticated, decoded } = useAuth();
@@ -51,6 +55,26 @@ function App() {
             path="/Dashboard"
             element={<ProtectedRoute element={<SecondHome />} />}
           />
+
+          <Route
+            path="/:roomNumber"
+            element={<ProtectedRoute element={<ThirdHome />} />}
+          />
+
+          <Route
+            path="/:roomNumber/:Dsr_No"
+            element={<ProtectedRoute element={<HistoryCard />} />}
+          />
+
+          <Route
+            path="/UserManagementDashboard"
+            element={
+              <ProtectedRoute
+                element={<UserManagementDashboard />}
+                allowedRoles={["HOD", "Principal"]} 
+              />
+            }
+            />
 
       </Routes>
       </BrowserRouter>
