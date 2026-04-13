@@ -7,6 +7,8 @@ import connectDb from "./DB/db.js";
 
 import LoginRouter from "./Routes/RegisterRoute.js"
 import Requests from "./Routes/Requests.js";
+import Notification from "./Routes/NotificationRouter.js";
+
 
 dotenv.config();
 
@@ -38,6 +40,7 @@ app.get("/", (req, res) => {
 
 app.use(LoginRouter);
 app.use(Requests);
+app.use(Notification);
 
 connectDb()
 .then(() => {

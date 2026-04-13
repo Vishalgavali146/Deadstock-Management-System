@@ -67,6 +67,16 @@ function App() {
           />
 
           <Route
+            path="/Notification"
+            element={
+              <ProtectedRoute
+                element={<Notification />}
+                allowedRoles={["HOD", "Lab_Incharge"]} 
+              />
+            }
+            />
+            
+          <Route
             path="/UserManagementDashboard"
             element={
               <ProtectedRoute
