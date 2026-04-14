@@ -36,7 +36,7 @@ export const createLab = async (req, res) => {
     
     const department = await Department.findOne({
       departmentCode: departmentId,
-    });
+    }); 
 
     if (!department) {
       return res.status(404).json({ error: "Department not found" });

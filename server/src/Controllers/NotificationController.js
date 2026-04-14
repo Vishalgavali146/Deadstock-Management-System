@@ -195,7 +195,7 @@ export const approveRequestUsingDSRNo = async (req, res) => {
 
         console.error("Lab not found in department while approving:", requestDoc.labNo);
       } else {
-        lab.equipments.push(newExquipment._id);
+        lab.equipments.push(newEquipment._id);
         await lab.save();
       }
     }

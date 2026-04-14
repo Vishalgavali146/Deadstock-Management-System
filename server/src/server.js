@@ -7,8 +7,12 @@ import connectDb from "./DB/db.js";
 
 import LoginRouter from "./Routes/RegisterRoute.js"
 import Requests from "./Routes/Requests.js";
+import departmentRoutes from "./Routes/departmentLabCreationRoutes.js"; 
+import labcontent from "./Routes/departmentLabFetchRoutes.js";
+import ApprovalRequest from "./Routes/ApprovalEquipment.js"; 
 import Notification from "./Routes/NotificationRouter.js";
-
+  
+import RequisitionRouter from './Routes/RequisationRouter.js';
 
 dotenv.config();
 
@@ -40,7 +44,13 @@ app.get("/", (req, res) => {
 
 app.use(LoginRouter);
 app.use(Requests);
+app.use(departmentRoutes);
+app.use(labcontent);
+app.use(ApprovalRequest);
 app.use(Notification);
+app.use(RequisitionRouter);
+
+
 
 connectDb()
 .then(() => {
