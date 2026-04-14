@@ -10,6 +10,7 @@ import SecondHome from "../Container/SecondHome.jsx";
 import ThirdHome from "../Container/ThirdHome.jsx";
 import HistoryCard from "../Container/HistoryCard.jsx";
 import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
+import Procured from "../Container/Procured.jsx";
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
   const { isAuthenticated, decoded } = useAuth();
@@ -57,6 +58,11 @@ function App() {
           />
 
           <Route
+            path="/Procured"
+            element={<ProtectedRoute element={<Procured />} />}
+          />
+
+          <Route
             path="/:roomNumber"
             element={<ProtectedRoute element={<ThirdHome />} />}
           />
@@ -75,6 +81,8 @@ function App() {
               />
             }
             />
+
+            
             
           <Route
             path="/UserManagementDashboard"
