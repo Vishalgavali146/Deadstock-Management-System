@@ -9,7 +9,8 @@ import LoginRouter from "./Routes/RegisterRoute.js"
 import Requests from "./Routes/Requests.js";
 import departmentRoutes from "./Routes/departmentLabCreationRoutes.js"; 
 import labcontent from "./Routes/departmentLabFetchRoutes.js";
-import ApprovalRequest from "./Routes/ApprovalEquipment.js"; 
+import ApprovalRequest from "./Routes/ApprovalEquipment.js";
+import BudgetRoutes from "./Routes/BudgetAnalysis.js"; 
 import Notification from "./Routes/NotificationRouter.js";
 import Staff from "./Routes/StaffRouter.js";
 import RequisitionRouter from './Routes/RequisationRouter.js';
@@ -47,6 +48,7 @@ app.use(Requests);
 app.use(departmentRoutes);
 app.use(labcontent);
 app.use(ApprovalRequest);
+app.use(BudgetRoutes);
 app.use(Notification);
 app.use(RequisitionRouter);
 app.use(Staff);

@@ -7,14 +7,16 @@ import LoginForm from "../Container/LoginPage.jsx";
 import SignUp from "../Container/SignUp.jsx";
 import { RequisitionProvider } from "../Provider/RequisitionContext.jsx";
 import SecondHome from "../Container/SecondHome.jsx";
+import Procured from "../Container/Procured.jsx";
 import ThirdHome from "../Container/ThirdHome.jsx";
 import HistoryCard from "../Container/HistoryCard.jsx";
-import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
-import Procured from "../Container/Procured.jsx";
 import Notification from "../Container/Notification.jsx";
 import ApprovalsforRequest from "../Container/ApprovalsforRequest.jsx";
+import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
+import BudgetManagement from "../Container/BudgetManagement.jsx";
 import RequisitionsRequest from "../Container/Requisitions.jsx";
-import RequisitionDetails from "../Container/RequisitionDetails.jsx";
+import RequisitionDetails from "../Container/Requisitions/RequisitionDetails.jsx";
+
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
   const { isAuthenticated, decoded } = useAuth();
@@ -105,6 +107,16 @@ function App() {
               />
             }
             />
+
+            <Route
+            path="/BudgetManagement"
+            element={
+              <ProtectedRoute
+                element={<BudgetManagement />}
+                allowedRoles={["DSR_Incharge"]} 
+              />
+            }
+          />
 
             <Route
             path="/RequisitionsRequest"
