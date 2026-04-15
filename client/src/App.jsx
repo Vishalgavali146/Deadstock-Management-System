@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useAuth } from "../Provider/AuthContext";
 import LoginForm from "../Container/LoginPage.jsx";
@@ -11,6 +11,10 @@ import ThirdHome from "../Container/ThirdHome.jsx";
 import HistoryCard from "../Container/HistoryCard.jsx";
 import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
 import Procured from "../Container/Procured.jsx";
+import Notification from "../Container/Notification.jsx";
+import ApprovalsforRequest from "../Container/ApprovalsforRequest.jsx";
+import RequisitionsRequest from "../Container/Requisitions.jsx";
+import RequisitionDetails from "../Container/RequisitionDetails.jsx";
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
   const { isAuthenticated, decoded } = useAuth();
@@ -82,8 +86,16 @@ function App() {
             }
             />
 
-            
-            
+            <Route
+            path="/ApprovalsforRequest"
+            element={
+              <ProtectedRoute
+                element={<ApprovalsforRequest />}
+                allowedRoles={["Staff", "Lab_Incharge"]} 
+              />
+            }
+            />
+  
           <Route
             path="/UserManagementDashboard"
             element={
@@ -93,6 +105,28 @@ function App() {
               />
             }
             />
+
+            <Route
+            path="/RequisitionsRequest"
+            element={
+              <ProtectedRoute
+                element={<RequisitionsRequest />}
+                allowedRoles={["Central_DSR_Incharge", "Lab_Assistance" , "DSR_Incharge" , "HOD",
+              "Lab_Incharge",]}
+              />
+            }
+            />
+
+            <Route
+            path="/requisition/:id"
+            element={
+              <ProtectedRoute
+                element={<RequisitionDetails />}
+                allowedRoles={["Central_DSR_Incharge", "Lab_Assistance" , "DSR_Incharge" , "HOD",
+              "Lab_Incharge",]} 
+              />
+            }
+          />
 
       </Routes>
       </BrowserRouter>
