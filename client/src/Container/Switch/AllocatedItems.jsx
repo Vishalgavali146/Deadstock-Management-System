@@ -5,7 +5,7 @@ import SecondSB from "../../Header/SecondSB";
 import Pagination from "../../Footer/Pagination";
 import "./AllocateItems.css";
 import { jwtDecode } from "jwt-decode";
-import { tableHeaderswithkeys } from "../../src/data";
+import { tableHeaderswithkeys } from "../../data";
 
 const ITEMS_PER_PAGE = 10;
 

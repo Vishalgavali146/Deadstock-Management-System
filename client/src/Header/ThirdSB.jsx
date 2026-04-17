@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "../Header/SearchBar.css";
+import "./SearchBar.css";
 
-function SecondSB({ onSearch }) {
+function ThirdSB({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -11,9 +10,8 @@ function SecondSB({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch({ searchTerm, category: selectedCategory });
+    onSearch(searchTerm);
     setSearchTerm("");
-    setSelectedCategory("");
   };
 
   return (
@@ -23,19 +21,15 @@ function SecondSB({ onSearch }) {
           type="text"
           value={searchTerm}
           onChange={handleInputChange}
-          placeholder="Search by Category..."
+          placeholder="Search by place..."
           className="search-input"
         />
-
         <button type="submit" className="search-button">
           Search
-        </button>
-        <button type="button" className="search-button">
-          Download
         </button>
       </form>
     </>
   );
 }
 
-export default SecondSB;
+export default ThirdSB;

@@ -2,20 +2,20 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { useAuth } from "../Provider/AuthContext";
-import LoginForm from "../Container/LoginPage.jsx";
-import SignUp from "../Container/SignUp.jsx";
-import { RequisitionProvider } from "../Provider/RequisitionContext.jsx";
-import SecondHome from "../Container/SecondHome.jsx";
-import Procured from "../Container/Procured.jsx";
-import ThirdHome from "../Container/ThirdHome.jsx";
-import HistoryCard from "../Container/HistoryCard.jsx";
-import Notification from "../Container/Notification.jsx";
-import ApprovalsforRequest from "../Container/ApprovalsforRequest.jsx";
-import UserManagementDashboard from "../Container/UserManagementDashboard.jsx";
-import BudgetManagement from "../Container/BudgetManagement.jsx";
-import RequisitionsRequest from "../Container/Requisitions.jsx";
-import RequisitionDetails from "../Container/Requisitions/RequisitionDetails.jsx";
+import { useAuth } from "./Provider/AuthContext";
+import LoginForm from "./Container/LoginPage.jsx";
+import SignUp from "./Container/SignUp.jsx";
+import { RequisitionProvider } from "./Provider/RequisitionContext.jsx";
+import SecondHome from "./Container/SecondHome.jsx";
+import Procured from "./Container/Procured.jsx";
+import ThirdHome from "./Container/ThirdHome.jsx";
+import HistoryCard from "./Container/HistoryCard.jsx";
+import Notification from "./Container/Notification.jsx";
+import ApprovalsforRequest from "./Container/ApprovalsforRequest.jsx";
+import UserManagementDashboard from "./Container/UserManagementDashboard.jsx";
+import BudgetManagement from "./Container/BudgetManagement.jsx";
+import RequisitionsRequest from "./Container/Requisitions.jsx";
+import RequisitionDetails from "./Container/Requisitions/RequisitionDetails.jsx";
 
 
 const ProtectedRoute = ({ element, allowedRoles }) => {

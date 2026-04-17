@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { SecondPageHeaders } from "../src/data";
+import { SecondPageHeaders } from "../data";
 import ThirdSB from "../Header/ThirdSB";
 import PaginationSP from "../Footer/Pagination";
 

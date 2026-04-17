@@ -4,7 +4,7 @@ import Pagination from "../Footer/Pagination";
 import "./Container.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { HistoryCardTable } from "../src/data";
+import { HistoryCardTable } from "../data";
 
 const ITEMS_PER_PAGE = 5;
 
