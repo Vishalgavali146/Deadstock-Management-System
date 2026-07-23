@@ -27,7 +27,10 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 
 const corsOption = {
-    origin: process.env.VITE_URL,
+    origin: [
+        process.env.VITE_URL,
+        process.env.FRONTEND_URL
+    ],
     methods: "GET, POST, DELETE, PATCH, PUT",
     optionsSuccessStatus: 200,
     credentials: true, 
