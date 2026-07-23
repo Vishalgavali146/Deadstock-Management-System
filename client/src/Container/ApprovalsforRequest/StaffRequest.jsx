@@ -59,19 +59,17 @@ function StaffRequest() {
       const token = localStorage.getItem("token");
       await axios.put(
         `http://localhost:5000/approve/${id}`,
-
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
       toast({
         title: "Requisition Approved",
         description: "The requisition has been approved successfully.",
         status: "success",
         duration: 5000,
         isClosable: true,
+        position: "top-right",
       });
-
       setRequisitions((prev) => prev.filter((req) => req._id !== id));
     } catch (err) {
       console.error("Error approving requisition:", err);
@@ -81,6 +79,7 @@ function StaffRequest() {
         status: "error",
         duration: 5000,
         isClosable: true,
+        position: "top-right",
       });
     }
   };
@@ -91,109 +90,112 @@ function StaffRequest() {
 
   if (loading) {
     return (
-      <Box textAlign="center" mt={10}>
-        <Spinner size="xl" />
+      <Box display="flex" alignItems="center" justifyContent="center" minH="300px">
+        <Spinner size="lg" color="purple.500" thickness="3px" />
       </Box>
     );
   }
 
   if (error) {
     return (
-      <Box textAlign="center" mt={10}>
-        <Text color="red.500">{error}</Text>
+      <Box textAlign="center" mt={10} p={6}>
+        <Box w="48px" h="48px" bg="red.50" borderRadius="xl" display="flex" alignItems="center" justifyContent="center" mx="auto" mb={3}>
+          <Text fontSize="xl">⚠️</Text>
+        </Box>
+        <Text color="red.500" fontWeight="500">{error}</Text>
       </Box>
     );
   }
 
+  const thStyle = { fontSize: "10px", textTransform: "uppercase", letterSpacing: "wider", color: "gray.500", fontWeight: "600", py: 3 };
+
   return (
-    <Box>
-      <Heading mb={4}>Requisitions List</Heading>
-      <Box
-        overflowX="auto"
-        border="1px solid"
-        borderColor="gray.200"
-        borderRadius="md"
-        bg="white"
-      >
-        <Table size="sm" variant="unstyled" width="full">
-          <Thead>
-            <Tr bg="gray.50" borderBottom="1px solid" borderColor="gray.200">
-              <Th px="4" py="3">
-                Requisition Number
-              </Th>
-              <Th px="4" py="3">
-                Date
-              </Th>
-              <Th px="4" py="3">
-                From (Department)
-              </Th>
-              <Th px="4" py="3">
-                To (Purchase Officer)
-              </Th>
-              <Th px="4" py="3">
-                Reference
-              </Th>
-              <Th px="4" py="3">
-                Requester Name
-              </Th>
-              <Th px="4" py="3">
-                Requester Email
-              </Th>
-              <Th px="4" py="3">
-                Actions
-              </Th>
+    <Box p={6}>
+      <Box mb={5}>
+        <Heading size="md" color="gray.800" mb={1}>Requisitions List</Heading>
+        <Text fontSize="sm" color="gray.500">{requisitions.length} pending requisition{requisitions.length !== 1 ? "s" : ""}</Text>
+      </Box>
+
+      <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.200" boxShadow="sm" overflow="hidden">
+        <Table size="sm" variant="unstyled">
+          <Thead bg="gray.50" borderBottom="1px solid" borderColor="gray.100">
+            <Tr>
+              <Th {...thStyle}>Req. Number</Th>
+              <Th {...thStyle}>Date</Th>
+              <Th {...thStyle}>From (Dept)</Th>
+              <Th {...thStyle}>To (Purchase)</Th>
+              <Th {...thStyle}>Reference</Th>
+              <Th {...thStyle}>Requester</Th>
+              <Th {...thStyle}>Email</Th>
+              <Th {...thStyle} textAlign="center">Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {requisitions.map((req) => (
-              <Tr key={req._id} borderBottom="1px solid" borderColor="gray.100">
-                <Td px="4" py="4">
-                  {req.generalDetails.requisitionNumber}
-                </Td>
-                <Td px="4" py="3">
-                  {new Date(req.generalDetails.date).toLocaleDateString()}
-                </Td>
-                <Td px="4" py="2">
-                  {req.generalDetails.from}
-                </Td>
-                <Td px="4" py="2">
-                  {req.generalDetails.to}
-                </Td>
-                <Td px="4" py="2">
-                  {req.generalDetails.reference}
-                </Td>
-                <Td px="4" py="2">
-                  {req.generalDetails.requesterName}
-                </Td>
-                <Td px="4" py="2">
-                  {req.generalDetails.requesterEmail}
-                </Td>
-                <Td px="4" py="2">
-                  <Box display="flex" gap={2}>
-                    <Button
-                      leftIcon={<ViewIcon />}
-                      colorScheme="blue"
-                      size="sm"
-                      onClick={() => handleView(req)}
-                    >
-                      View
-                    </Button>
-                    {(userRole === "Central_DSR_Incharge" ||
-                      userRole === "DSR_Incharge" ||
-                      userRole === "Lab_Incharge" ||
-                      userRole === "HOD") && (
+            {requisitions.length > 0 ? (
+              requisitions.map((req) => (
+                <Tr
+                  key={req._id}
+                  borderBottom="1px solid"
+                  borderColor="gray.50"
+                  _hover={{ bg: "gray.50" }}
+                  transition="background 0.15s"
+                >
+                  <Td px={4} py={3} fontWeight="500" fontSize="sm" color="gray.800">
+                    {req.generalDetails.requisitionNumber}
+                  </Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.600">
+                    {new Date(req.generalDetails.date).toLocaleDateString()}
+                  </Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.600">{req.generalDetails.from}</Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.600">{req.generalDetails.to}</Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.600">{req.generalDetails.reference}</Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.700" fontWeight="500">
+                    {req.generalDetails.requesterName}
+                  </Td>
+                  <Td px={4} py={3} fontSize="sm" color="gray.500">{req.generalDetails.requesterEmail}</Td>
+                  <Td px={4} py={3}>
+                    <Box display="flex" gap={2} justifyContent="center">
                       <Button
-                        colorScheme="green"
-                        size="sm"
-                        onClick={() => handleApprove(req._id)}
+                        leftIcon={<ViewIcon />}
+                        colorScheme="purple"
+                        size="xs"
+                        variant="ghost"
+                        borderRadius="lg"
+                        onClick={() => handleView(req)}
+                        _hover={{ bg: "purple.50" }}
                       >
-                        Approve
+                        View
                       </Button>
-                    )}
+                      {(userRole === "Central_DSR_Incharge" ||
+                        userRole === "DSR_Incharge" ||
+                        userRole === "Lab_Incharge" ||
+                        userRole === "HOD") && (
+                        <Button
+                          colorScheme="green"
+                          size="xs"
+                          borderRadius="lg"
+                          onClick={() => handleApprove(req._id)}
+                        >
+                          Approve
+                        </Button>
+                      )}
+                    </Box>
+                  </Td>
+                </Tr>
+              ))
+            ) : (
+              <Tr>
+                <Td colSpan={8} textAlign="center" py={16}>
+                  <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
+                    <Box w="48px" h="48px" bg="gray.100" borderRadius="xl" display="flex" alignItems="center" justifyContent="center">
+                      <Text fontSize="xl">📋</Text>
+                    </Box>
+                    <Text fontSize="sm" fontWeight="500" color="gray.500">No requisitions found</Text>
+                    <Text fontSize="xs" color="gray.400">Requisitions assigned to you will appear here</Text>
                   </Box>
                 </Td>
               </Tr>
-            ))}
+            )}
           </Tbody>
         </Table>
       </Box>

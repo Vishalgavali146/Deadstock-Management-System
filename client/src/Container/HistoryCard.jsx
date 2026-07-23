@@ -5,6 +5,7 @@ import "./Container.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { HistoryCardTable } from "../data";
+import { Plus, Save, X, History, Building2 } from "lucide-react";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -46,9 +47,7 @@ const HistoryCard = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
-  const handlePage = (page) => {
-    setCurrentPage(page);
-  };
+  const handlePage = (page) => setCurrentPage(page);
 
   const handleNewRowChange = (index, value) => {
     const updatedRow = [...newRow];
@@ -88,142 +87,281 @@ const HistoryCard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="second-home-container h-full">
+    <div style={{ minHeight: "100vh", background: "var(--surface-bg)" }}>
+      <div className="second-home-container">
         <div className="sidebar-container">
           <SidebarMenu />
         </div>
-        <div className="bg-white border p-7 shadow-md w-[75rem] mx-auto my-5">
-          {/* Header Section */}
-          <div className="border-b border-gray-500 pb-2 mb-4">
-            <h2 className="text-xl font-semibold text-center">
-              HISTORY CARD - HARDWARE
-            </h2>
-            <p className="text-sm text-center">Laboratory Equipment Details</p>
-            <p className="text-sm underline text-center">
-              V-I characteristics of LED & Detector
-            </p>
-          </div>
-          {/* Supplier and Purchase Details */}
-          <div className="grid grid-cols-2 gap-4 border-b border-gray-500 pb-4 mb-4">
-            <div className="border-r border-gray-500 pr-4">
-              <h3 className="font-semibold underline mb-2">
-                Supplier Details:
-              </h3>
-              <p className="text-sm">{rowvalues?.nameOfSupplier || "N/A"}</p>
-              <p className="text-sm">
-                50, Swami Vivekanand Soc, Santnagar Pune - 411009
+
+        <div style={{ flex: 1, minWidth: 0, padding: 28 }}>
+          {/* Main Card */}
+          <div
+            style={{
+              background: "#ffffff",
+              borderRadius: "var(--radius-xl)",
+              border: "1px solid var(--surface-border)",
+              boxShadow: "var(--shadow-md)",
+              overflow: "hidden",
+              maxWidth: 1100,
+              margin: "0 auto",
+            }}
+          >
+            {/* Header Section */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #4338ca 0%, #6366f1 60%, #818cf8 100%)",
+                padding: "28px 32px",
+                color: "#fff",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+                <History size={22} />
+                <h2 style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.01em", color: "#fff" }}>
+                  HISTORY CARD — HARDWARE
+                </h2>
+              </div>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.75)" }}>
+                Laboratory Equipment Details
               </p>
-              <p className="text-sm">Phone No. 422</p>
-            </div>
-            <div>
-              <h3 className="font-semibold underline mb-2">
-                Purchase Details:
-              </h3>
-              <p className="text-sm">P.O.: PICT/PUR&E/TC/11</p>
-              <p className="text-sm">Invoice No.: 82</p>
-              <p className="text-sm">Dated: 13/2/12</p>
-            </div>
-          </div>
-          {/* DSR Details */}
-          <div className="grid grid-cols-2 gap-4 border-b border-gray-500 pb-4 mb-4">
-            <div className="border-r border-gray-500 pr-4">
-              <h3 className="font-semibold underline mb-2">DSR Details:</h3>
-            </div>
-            <div>
-              <p className="text-sm">
-                Dept. DSR Page No.: {rowvalues?.ddsrPageNo || "N/A"} Sr. No.:{" "}
-                {rowvalues?.ddsrSrNo || "N/A"}
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.85)", marginTop: 4, fontWeight: 500 }}>
+                V-I Characteristics of LED &amp; Detector
               </p>
-              <p className="text-sm">DSR No.: {rowvalues?.dsr_no || "N/A"}</p>
             </div>
-          </div>
-          {/* History Table with Add Row functionality */}
-          <div>
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold underline">Problem History</h3>
-              <button
-                onClick={() => setShowNewRow(true)}
-                className="px-4 py-2 bg-green-500 text-white rounded"
+
+            {/* Details Section */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: 0,
+                borderBottom: "1px solid var(--surface-border)",
+              }}
+            >
+              {/* Supplier Details */}
+              <div
+                style={{
+                  padding: "20px 24px",
+                  borderRight: "1px solid var(--surface-border)",
+                }}
               >
-                Add Row
-              </button>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                  <Building2 size={14} color="var(--color-primary)" />
+                  <h3 style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-tertiary)" }}>
+                    Supplier Details
+                  </h3>
+                </div>
+                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--text-primary)", marginBottom: 4 }}>
+                  {rowvalues?.nameOfSupplier || "N/A"}
+                </p>
+                <p style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                  50, Swami Vivekanand Soc, Santnagar Pune - 411009
+                </p>
+                <p style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 3 }}>
+                  Phone No. 422
+                </p>
+              </div>
+
+              {/* Purchase Details */}
+              <div style={{ padding: "20px 24px", borderRight: "1px solid var(--surface-border)" }}>
+                <h3 style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-tertiary)", marginBottom: 12 }}>
+                  Purchase Details
+                </h3>
+                <InfoRow label="P.O." value="PICT/PUR&E/TC/11" />
+                <InfoRow label="Invoice No." value="82" />
+                <InfoRow label="Dated" value="13/2/12" />
+              </div>
+
+              {/* DSR Details */}
+              <div style={{ padding: "20px 24px" }}>
+                <h3 style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-tertiary)", marginBottom: 12 }}>
+                  DSR Details
+                </h3>
+                <InfoRow label="Dept. DSR Page No." value={rowvalues?.ddsrPageNo || "N/A"} />
+                <InfoRow label="Sr. No." value={rowvalues?.ddsrSrNo || "N/A"} />
+                <InfoRow label="DSR No." value={rowvalues?.dsr_no || "N/A"} />
+              </div>
             </div>
-            {/* Table container with fixed height */}
-            <div style={{ maxHeight: "500px", overflowY: "auto" }}>
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-800 text-white">
-                  <tr>
-                    {HistoryCardTable.map((header, index) => (
-                      <th key={index} className="px-4 py-2 text-left w-auto">
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {currentData.map((rowData, rowIndex) => (
-                    <tr key={rowIndex} className="hover:bg-gray-100">
-                      {rowData.map((cellData, cellIndex) => (
-                        <td key={cellIndex} className="px-4 py-2">
-                          {cellData}
-                        </td>
+
+            {/* History Table */}
+            <div style={{ padding: "20px 24px 24px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                <div>
+                  <h3 style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>
+                    Problem History
+                  </h3>
+                  <p style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 2 }}>
+                    {data.length} maintenance record{data.length !== 1 ? "s" : ""}
+                  </p>
+                </div>
+                {!showNewRow && (
+                  <button
+                    onClick={() => setShowNewRow(true)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      padding: "8px 16px",
+                      background: "var(--color-primary)",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "var(--radius-md)",
+                      cursor: "pointer",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      fontFamily: "var(--font-sans)",
+                      transition: "background var(--transition-fast), box-shadow var(--transition-fast)",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-primary-dark)"; e.currentTarget.style.boxShadow = "var(--shadow-md)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "var(--color-primary)"; e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <Plus size={14} /> Add Entry
+                  </button>
+                )}
+              </div>
+
+              {/* Table */}
+              <div
+                style={{
+                  border: "1px solid var(--surface-border)",
+                  borderRadius: "var(--radius-lg)",
+                  overflow: "hidden",
+                  maxHeight: 420,
+                  overflowY: "auto",
+                }}
+              >
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ background: "#f8fafc", position: "sticky", top: 0, zIndex: 1 }}>
+                      {HistoryCardTable.map((header, index) => (
+                        <th
+                          key={index}
+                          style={{
+                            padding: "10px 14px",
+                            textAlign: "left",
+                            fontWeight: 600,
+                            fontSize: 11,
+                            color: "var(--text-tertiary)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.05em",
+                            borderBottom: "1px solid var(--surface-border)",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {header}
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                  {showNewRow && (
-                    <>
-                      <tr className="bg-gray-100">
-                        {HistoryCardTable.map((header, index) => (
-                          <td key={index} className="px-4 py-2">
-                            <input
-                              type="text"
-                              className="border rounded px-4 py-2 w-full"
-                              value={newRow[index]}
-                              onChange={(e) =>
-                                handleNewRowChange(index, e.target.value)
-                              }
-                              placeholder={header}
-                            />
+                  </thead>
+                  <tbody>
+                    {currentData.map((rowData, rowIndex) => (
+                      <tr
+                        key={rowIndex}
+                        style={{
+                          borderBottom: "1px solid var(--surface-border)",
+                          background: rowIndex % 2 === 0 ? "#fff" : "#fafafa",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--surface-hover)")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = rowIndex % 2 === 0 ? "#fff" : "#fafafa")}
+                      >
+                        {rowData.map((cellData, cellIndex) => (
+                          <td key={cellIndex} style={{ padding: "11px 14px", color: "var(--text-secondary)" }}>
+                            {cellData}
                           </td>
                         ))}
                       </tr>
-                      <tr className="bg-gray-100">
-                        <td
-                          className="px-4 py-2"
-                          colSpan={HistoryCardTable.length}
-                        >
-                          <div className="flex space-x-2 justify-end">
-                            <button
-                              onClick={submitNewRow}
-                              className="px-4 py-2 bg-blue-500 text-white rounded"
-                            >
-                              Submit
-                            </button>
-                            <button
-                              onClick={cancelNewRow}
-                              className="px-4 py-2 bg-red-500 text-white rounded"
-                            >
-                              Cancel
-                            </button>
+                    ))}
+
+                    {showNewRow && (
+                      <>
+                        <tr style={{ background: "#eff6ff" }}>
+                          {HistoryCardTable.map((header, index) => (
+                            <td key={index} style={{ padding: "10px 10px" }}>
+                              <input
+                                type="text"
+                                style={{
+                                  width: "100%",
+                                  height: 34,
+                                  padding: "0 10px",
+                                  fontSize: 13,
+                                  fontFamily: "var(--font-sans)",
+                                  border: "1.5px solid var(--color-primary-light)",
+                                  borderRadius: "var(--radius-sm)",
+                                  background: "#fff",
+                                  outline: "none",
+                                }}
+                                value={newRow[index]}
+                                onChange={(e) => handleNewRowChange(index, e.target.value)}
+                                placeholder={header}
+                              />
+                            </td>
+                          ))}
+                        </tr>
+                        <tr style={{ background: "#eff6ff" }}>
+                          <td colSpan={HistoryCardTable.length} style={{ padding: "10px 14px" }}>
+                            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                              <button
+                                onClick={submitNewRow}
+                                style={{
+                                  display: "flex", alignItems: "center", gap: 6,
+                                  padding: "7px 16px", background: "var(--color-primary)", color: "#fff",
+                                  border: "none", borderRadius: "var(--radius-md)", cursor: "pointer",
+                                  fontSize: 13, fontWeight: 600, fontFamily: "var(--font-sans)",
+                                }}
+                              >
+                                <Save size={13} /> Save Entry
+                              </button>
+                              <button
+                                onClick={cancelNewRow}
+                                style={{
+                                  display: "flex", alignItems: "center", gap: 6,
+                                  padding: "7px 16px", background: "var(--surface-card)", color: "var(--text-secondary)",
+                                  border: "1px solid var(--surface-border)", borderRadius: "var(--radius-md)",
+                                  cursor: "pointer", fontSize: 13, fontWeight: 500, fontFamily: "var(--font-sans)",
+                                }}
+                              >
+                                <X size={13} /> Cancel
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
+                    {data.length === 0 && !showNewRow && (
+                      <tr>
+                        <td colSpan={HistoryCardTable.length} style={{ padding: "48px 16px", textAlign: "center" }}>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+                            <div style={{ width: 44, height: 44, background: "var(--surface-hover)", borderRadius: "var(--radius-lg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              <History size={20} color="var(--text-tertiary)" />
+                            </div>
+                            <p style={{ fontSize: 13, fontWeight: 500, color: "var(--text-secondary)" }}>
+                              No maintenance history yet
+                            </p>
                           </div>
                         </td>
                       </tr>
-                    </>
-                  )}
-                </tbody>
-              </table>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div style={{ marginTop: 12 }}>
+                <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={handlePage} />
+              </div>
             </div>
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPage}
-              onPageChange={handlePage}
-            />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+// Helper component
+const InfoRow = ({ label, value }) => (
+  <div style={{ display: "flex", gap: 6, marginBottom: 5 }}>
+    <span style={{ fontSize: 12, color: "var(--text-tertiary)", whiteSpace: "nowrap" }}>{label}:</span>
+    <span style={{ fontSize: 12, color: "var(--text-primary)", fontWeight: 500 }}>{value}</span>
+  </div>
+);
 
 export default HistoryCard;

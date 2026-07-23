@@ -1,220 +1,238 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-/* Resetting default styling and setting font-family */
-* {
-  font-family: "Montserrat", sans-serif;
+/* ============================================
+   SIGNUP PAGE — MATCHES PREMIUM LOGIN DESIGN
+   ============================================ */
+
+.signup_wrapper,
+.signup_wrapper * {
+  font-family: var(--font-sans);
 }
 
 .signup_wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f5f3ff 100%);
+  background: #f8fafc;
+}
+
+/* Brand panel mirrors LoginPage */
+.signup_brand_panel {
+  display: none;
+  flex: 1;
+  background: linear-gradient(135deg, #4338ca 0%, #6366f1 40%, #818cf8 100%);
+  padding: 48px;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup_brand_panel::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.signup_brand_panel::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 320px;
+  height: 320px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+@media (min-width: 1024px) {
+  .signup_brand_panel { display: flex; }
+}
+
+.signup_brand_logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signup_brand_logo_icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+}
+
+.signup_brand_logo_name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.signup_brand_content {
+  position: relative;
+  z-index: 1;
+}
+
+.signup_brand_title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.signup_brand_subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.signup_brand_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 24px;
+}
+
+/* Right Panel */
+.signup_form_panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: #ffffff;
+  overflow-y: auto;
 }
 
 .SignUp_form {
   width: 100%;
-  max-width: 380px;
-  background: #fff;
-  border-radius: 6px;
-  padding: 32px 26px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
 }
 
-.login_form h3 {
-  font-size: 20px;
-  text-align: center;
+.signup_form_header {
+  margin-bottom: 32px;
 }
-/* Google & Apple button styling */
-.login_form .login_option {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
+
+.signup_form_title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
 }
-.login_form .login_option .option {
-  width: calc(100% / 2 - 12px);
+
+.signup_form_subtitle {
+  font-size: 14px;
+  color: var(--text-tertiary);
 }
-.login_form .login_option .option a {
-  height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  background: #f8f8fb;
-  border: 1px solid #dadaf2;
-  border-radius: 5px;
-  margin: 34px 0 24px 0;
-  text-decoration: none;
-  color: #171645;
-  font-weight: 500;
-  transition: 0.2s ease;
-}
-.login_form .login_option .option a:hover {
-  background: #ededf5;
-  border-color: #626cd6;
-}
-.login_form .login_option .option a img {
-  max-width: 25px;
-}
-.login_form p {
-  text-align: center;
-  font-weight: 500;
-}
-.login_form .separator {
-  position: relative;
-  margin-bottom: 24px;
-}
-/* Login option separator styling */
-.login_form .separator span {
-  background: #fff;
-  z-index: 1;
-  padding: 0 10px;
+
+/* Shared with login — input_box / button / sign_up */
+.input_box {
+  margin-bottom: 18px;
   position: relative;
 }
-.login_form .separator::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 0;
-  height: 1px;
-  background: #c2c2c2;
+
+.input_box label {
   display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 7px;
+  text-transform: none;
+  letter-spacing: 0;
 }
-form .input_box label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-/* Input field styling */
-form .input_box input {
+
+.input_box input {
   width: 100%;
-  height: 48px;
-  border: 1px solid #dadaf2;
-  border-radius: 5px;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: #f8fafc;
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
   outline: none;
-  background: #f8f8fb;
-  font-size: 15px;
-  padding: 0px 16px;
-  margin-bottom: 20px;
-  transition: 0.2s ease;
 }
-form .input_box input:focus {
-  border-color: #626cd6;
+
+.input_box input:focus {
+  background: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
 }
-form .input_box .password_title {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
+
+.input_box input::placeholder {
+  color: var(--text-tertiary);
 }
-form .input_box {
-  position: relative;
-}
-a {
-  text-decoration: none;
-  color: #626cd6;
-  font-weight: 500;
-}
-a:hover {
-  text-decoration: underline;
-}
-/* Login button styling */
+
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
-  height: 46px;
-  border-radius: 5px;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  color: #ffffff;
+  background: var(--color-primary);
   border: none;
-  outline: none;
-  background: #626cd6;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: uppercase;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  margin-bottom: 22px;
-  transition: 0.3s ease;
-}
-.button:hover {
-  background: #4954d0;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  outline: none;
+  margin-bottom: 20px;
 }
 
-/* ===== Responsive Fixes ===== */
-
-/* Fix input overflow on small screens */
-*, *::before, *::after {
-  box-sizing: border-box;
+.button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  transform: translateY(-1px);
 }
 
-/* Tablet screens (768px and below) */
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.sign_up {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.sign_up a {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .SignUp_form {
-    max-width: 90%;
-    padding: 30px 24px;
-  }
-
-  .SignUp_form h3 {
-    font-size: 18px;
-  }
-
-  form .input_box input {
-    height: 50px;
-    font-size: 15px;
-    padding: 0px 16px;
-    margin-bottom: 20px;
-  }
-
-  form select {
-    font-size: 15px;
-    padding: 10px 14px;
-  }
-
-  .button {
-    height: 50px;
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-}
-
-/* Mobile screens (480px and below) */
-@media (max-width: 480px) {
-  .SignUp_form {
     max-width: 100%;
-    padding: 24px 16px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .SignUp_form h3 {
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-
-  form .input_box input {
-    height: 46px;
-    font-size: 14px;
-    padding: 0px 12px;
-    margin-bottom: 16px;
-  }
-
-  form .input_box label {
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
-
-  form select {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  .button {
-    height: 46px;
-    font-size: 15px;
-    margin-bottom: 16px;
-  }
-
-  .sign_up {
-    font-size: 13px;
   }
 }

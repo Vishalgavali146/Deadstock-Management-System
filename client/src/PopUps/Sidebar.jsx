@@ -1,163 +1,183 @@
 import React from "react";
 import "boxicons/css/boxicons.min.css";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../Provider/AuthContext";
-import { FiUsers } from "react-icons/fi";
+import {
+  LayoutDashboard,
+  Bell,
+  Users,
+  FolderOpen,
+  CheckSquare,
+  DollarSign,
+  Package,
+  Settings,
+  Layers,
+} from "lucide-react";
+
+const NavItem = ({ to, icon, label, active }) => (
+  <Link to={to} style={{ textDecoration: "none" }}>
+    <li className="list">
+      <p
+        className="nav-link"
+        style={{
+          background: active ? "var(--sidebar-active)" : "transparent",
+        }}
+      >
+        <span
+          className="icon"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            color: active ? "var(--color-primary-light)" : undefined,
+          }}
+        >
+          {icon}
+        </span>
+        <span
+          className="link"
+          style={{ color: active ? "var(--color-primary-light)" : undefined }}
+        >
+          {label}
+        </span>
+      </p>
+    </li>
+  </Link>
+);
 
 const SidebarMenu = () => {
   const { decoded } = useAuth();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="sidebar bg-red-50 h-screen flex flex-col">
+    <div className="sidebar">
+      {/* Logo */}
       <div className="logo">
-        <i className="bx bx-menu menu-icon"></i>
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            background: "linear-gradient(135deg, #6366f1, #818cf8)",
+            borderRadius: 9,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <Layers size={17} color="#fff" />
+        </div>
         <span className="logo-name">PICTLab</span>
       </div>
 
       <div className="sidebar-content flex flex-col justify-between">
         <div className="upper-content">
+          {/* Main Section */}
+          <p className="sidebar-section-label">Main</p>
           <ul className="lists">
-            <Link to="/Dashboard" style={{ textDecoration: "none" }}>
-              <li className="list">
-                <p className="nav-link">
-                  <i className="bx bx-home-alt icon"></i>
-                  <span className="link">Dashboard</span>
-                </p>
-              </li>
-            </Link>
-            {/* Hide Notifications link if user is Lab_Assistance or DSR_Incharge */}
+            <NavItem
+              to="/Dashboard"
+              icon={<LayoutDashboard size={17} />}
+              label="Dashboard"
+              active={isActive("/Dashboard")}
+            />
+
+            {/* Notifications — hidden for Lab_Assistance, DSR_Incharge */}
             {!["Lab_Assistance", "DSR_Incharge"].includes(decoded?.role) && (
-              <Link to="/Notification" style={{ textDecoration: "none" }}>
-                <li className="list">
-                  <p className="nav-link">
-                    <i className="bx bx-bell icon"></i>
-                    <span className="link">Notifications</span>
-                  </p>
-                </li>
-              </Link>
+              <NavItem
+                to="/Notification"
+                icon={<Bell size={17} />}
+                label="Notifications"
+                active={isActive("/Notification")}
+              />
             )}
-            {/* Show User Management only if user is HOD or Principal */}
+
+            {/* User Management — HOD, Principal only */}
             {["HOD", "Principal"].includes(decoded?.role) && (
-              <Link
+              <NavItem
                 to="/UserManagementDashboard"
-                style={{ textDecoration: "none" }}
-              >
-                <li className="list">
-                  <p
-                    className="nav-link"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "#808085",
-                    }}
-                  >
-                    <FiUsers size={20} />
-                    <span className="link">UserManage</span>
-                  </p>
-                </li>
-              </Link>
-            )}
-            {[
-              "Central_DSR_Incharge",
-              "Lab_Assistance",
-              "DSR_Incharge",
-              "HOD",
-              "Lab_Incharge",
-            ].includes(decoded?.role) && (
-              <Link
-                to="/RequisitionsRequest"
-                style={{ textDecoration: "none" }}
-              >
-                <li className="list">
-                  <p
-                    className="nav-link"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      color: "#808085",
-                    }}
-                  >
-                    <i className="bx bx-folder-open icon"></i>
-                    <span className="link">RequisitionsRequest</span>
-                  </p>
-                </li>
-              </Link>
-            )}
-            {["Lab_Incharge"].includes(decoded?.role) && (
-              <Link
-                to="/ApprovalsforRequest"
-                style={{ textDecoration: "none" }}
-              >
-                <li className="list">
-                  <p
-                    className="nav-link"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "#808085",
-                    }}
-                  >
-                    <FiUsers size={20} />
-                    <span className="link">StaffApproval</span>
-                  </p>
-                </li>
-              </Link>
-            )}
-            {["DSR_Incharge"].includes(decoded?.role) && (
-              <Link to="/BudgetManagement" style={{ textDecoration: "none" }}>
-                <li className="list">
-                  <p
-                    className="nav-link"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "#808085",
-                    }}
-                  >
-                    <FiUsers size={20} />
-                    <span className="link">BudgetManagement</span>
-                  </p>
-                </li>
-              </Link>
-            )}
-
-            <li className="list">
-              <p className="nav-link">
-                <i className="bx bx-heart icon"></i>
-                <span className="link">Likes</span>
-              </p>
-            </li>
-
-            {["Lab_Assistance"].includes(decoded?.role) && (
-              <Link to="/Procured" style={{ textDecoration: "none" }}>
-                <li className="list">
-                  <p
-                    className="nav-link"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "#808085",
-                    }}
-                  >
-                    <FiUsers size={20} />
-                    <span className="link">Procured</span>
-                  </p>
-                </li>
-              </Link>
+                icon={<Users size={17} />}
+                label="User Management"
+                active={isActive("/UserManagementDashboard")}
+              />
             )}
           </ul>
+
+          {/* Operations Section */}
+          {[
+            "Central_DSR_Incharge",
+            "Lab_Assistance",
+            "DSR_Incharge",
+            "HOD",
+            "Lab_Incharge",
+            "Lab_Assistance",
+          ].some((r) =>
+            [decoded?.role].includes(r)
+          ) && (
+            <>
+              <p className="sidebar-section-label" style={{ marginTop: 16 }}>
+                Operations
+              </p>
+              <ul className="lists">
+                {[
+                  "Central_DSR_Incharge",
+                  "Lab_Assistance",
+                  "DSR_Incharge",
+                  "HOD",
+                  "Lab_Incharge",
+                ].includes(decoded?.role) && (
+                  <NavItem
+                    to="/RequisitionsRequest"
+                    icon={<FolderOpen size={17} />}
+                    label="Requisitions"
+                    active={isActive("/RequisitionsRequest")}
+                  />
+                )}
+
+                {["Lab_Incharge"].includes(decoded?.role) && (
+                  <NavItem
+                    to="/ApprovalsforRequest"
+                    icon={<CheckSquare size={17} />}
+                    label="Staff Approvals"
+                    active={isActive("/ApprovalsforRequest")}
+                  />
+                )}
+
+                {["DSR_Incharge"].includes(decoded?.role) && (
+                  <NavItem
+                    to="/BudgetManagement"
+                    icon={<DollarSign size={17} />}
+                    label="Budget"
+                    active={isActive("/BudgetManagement")}
+                  />
+                )}
+
+                {["Lab_Assistance"].includes(decoded?.role) && (
+                  <NavItem
+                    to="/Procured"
+                    icon={<Package size={17} />}
+                    label="Procured Items"
+                    active={isActive("/Procured")}
+                  />
+                )}
+              </ul>
+            </>
+          )}
         </div>
 
+        {/* Bottom Section */}
         <div className="bottom-content">
           <ul>
             <li className="list">
               <p className="nav-link">
-                <i className="bx bx-cog icon"></i>
+                <span
+                  className="icon"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Settings size={17} />
+                </span>
                 <span className="link">Settings</span>
               </p>
             </li>

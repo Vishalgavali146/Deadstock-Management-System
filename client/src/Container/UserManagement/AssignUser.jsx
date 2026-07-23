@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SidebarMenu from "../../PopUps/Sidebar";
 import axios from "axios";
 import {
   Box,
@@ -9,7 +8,6 @@ import {
   Text,
   VStack,
   HStack,
-  Card,
   Heading,
   Flex,
 } from "@chakra-ui/react";
@@ -43,12 +41,10 @@ export default function AssignUser() {
       console.error("No token found in localStorage");
       return;
     }
-
     try {
       const response = await axios.get("http://localhost:5000/Requests", {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       if (response.data && Array.isArray(response.data.pendingRequests)) {
         setUsers(response.data.pendingRequests);
         setTotalUsers(response.data.totalUsers || 0);
@@ -81,10 +77,7 @@ export default function AssignUser() {
   };
 
   const handleVerify = (user) => {
-    setVerify((prev) => ({
-      ...prev,
-      email: user.email,
-    }));
+    setVerify((prev) => ({ ...prev, email: user.email }));
   };
 
   const handleInput = (event) => {
@@ -98,18 +91,13 @@ export default function AssignUser() {
       alert("Please fill all fields before submitting.");
       return;
     }
-
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         "http://localhost:5000/ApproveRequest",
-        
         verify,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
       if (response.status === 200) {
         alert("User verified successfully!");
         fetchData();
@@ -121,181 +109,196 @@ export default function AssignUser() {
         error.response && error.response.data && error.response.data.message
           ? error.response.data.message
           : "An unexpected error occurred.";
-
       alert(`Error: ${errorMessage}`);
     }
   };
 
+  const statCard = (bg, icon, label, count) => (
+    <Box flex="1" p={4} bg={bg} borderRadius="xl" border="1px solid" borderColor="gray.100">
+      <HStack justify="space-between">
+        <VStack align="start" spacing={0.5}>
+          <Text fontSize="xs" fontWeight="600" color="gray.500" textTransform="uppercase" letterSpacing="wider">{label}</Text>
+          <Text fontSize="2xl" fontWeight="700" color="gray.800">{count}</Text>
+        </VStack>
+        <Box p={2} bg="white" borderRadius="lg" boxShadow="sm">{icon}</Box>
+      </HStack>
+    </Box>
+  );
+
   return (
-    <Flex>
-      <SidebarMenu />
+    <Box p={6} minH="100vh" bg="gray.50">
+      {/* Stats */}
+      <Box mb={6}>
+        <Heading size="md" mb={1} color="gray.800">Assign User Roles</Heading>
+        <Text fontSize="sm" color="gray.500" mb={4}>Verify and assign roles to pending users</Text>
+        <HStack spacing={4}>
+          {statCard("white", <FaUsers size={20} color="#6366f1" />, "Total Users", totalUsers)}
+          {statCard("#f0fdf4", <FaUserCheck size={20} color="#10b981" />, "Verified", verifiedUsers)}
+          {statCard("#fffbeb", <FaClock size={20} color="#f59e0b" />, "Pending", pendingUsers)}
+        </HStack>
+      </Box>
 
-      <VStack spacing={6} w="full">
-
+      {/* Two-panel layout */}
+      <HStack spacing={5} align="start">
+        {/* Left: Unverified Users */}
         <Box
-          w="full"
-          h="220px"
-          p={4}
+          flex="1"
           bg="white"
-          borderRadius="lg"
-          boxShadow="4px 4px 10px rgba(0, 0, 0, 0.1)"
+          borderRadius="xl"
+          border="1px solid"
+          borderColor="gray.200"
+          boxShadow="sm"
+          overflow="hidden"
         >
-          <VStack align="start" spacing={0.1} mb={4}>
-            <Heading size="lg">User Management Dashboard</Heading>
-            <Text color="gray.600">
-              Manage user verification and role assignment
-            </Text>
-          </VStack>
+          <Flex px={4} py={3} alignItems="center" gap={2} borderBottom="1px solid" borderColor="gray.100">
+            <FaUserFriends size={18} color="#6366f1" />
+            <Text fontWeight="600" fontSize="sm" color="gray.700">Unverified Users</Text>
+          </Flex>
 
-          <HStack w="full" justify="space-between">
-            <Card p={4} w="32%" bg="gray.100" h="100%">
-              <HStack justify="space-between" w="full">
-                <VStack align="start" spacing={0}>
-                  <Text fontSize="md">Total Users</Text>
-                  <Text fontSize="2xl" fontWeight="bold">
-                    {totalUsers}
-                  </Text>
-                </VStack>
-                <FaUsers size={28} />
-              </HStack>
-            </Card>
-
-            <Card p={4} w="32%" bg="green.100" h="100%">
-              <HStack justify="space-between" w="full">
-                <VStack align="start" spacing={0}>
-                  <Text fontSize="md">Verified</Text>
-                  <Text fontSize="2xl" fontWeight="bold">
-                    {verifiedUsers}
-                  </Text>
-                </VStack>
-                <FaUserCheck size={28} />
-              </HStack>
-            </Card>
-
-            <Card p={4} w="32%" bg="yellow.100" h="100%">
-              <HStack justify="space-between" w="full">
-                <VStack align="start" spacing={0}>
-                  <Text fontSize="md">Pending</Text>
-                  <Text fontSize="2xl" fontWeight="bold">
-                    {pendingUsers}
-                  </Text>
-                </VStack>
-                <FaClock size={28} />
-              </HStack>
-            </Card>
-          </HStack>
-        </Box>
-
-        <HStack w="full" align="start">
- 
-          <Box
-            w="52%"
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            bg="white"
-            h="404px"
-          >
-            <HStack spacing={2}>
-              <FaUserFriends size={24} color="blue" />
-              <Text fontSize="lg" fontWeight="bold">
-                Unverified Users
-              </Text>
-            </HStack>
-
+          <Box px={4} py={3}>
             <Input
               placeholder="Search by username or email..."
-              my={2}
+              size="sm"
               value={searchTerm}
               onChange={handleSearch}
+              borderRadius="lg"
+              fontSize="13px"
+              border="1px solid"
+              borderColor="gray.200"
+              _focus={{ borderColor: "purple.400", boxShadow: "0 0 0 3px rgba(99,102,241,0.08)" }}
             />
-
-            <Box maxH="300px" overflowY="auto">
-              {filteredUsers.length > 0 ? (
-                filteredUsers.map((user) => (
-                  <HStack
-                    key={user.username}
-                    p={2}
-                    borderBottomWidth={1}
-                    justify="space-between"
-                  >
-                    <VStack align="start">
-                      <Text fontWeight="bold">{user.username}</Text>
-                      <Text fontSize="sm">{user.email}</Text>
-                      <Text fontSize="xs" color="gray.500">
-                        Registered: {user.registered}
-                      </Text>
-                    </VStack>
-                    <Button
-                      colorScheme="green"
-                      onClick={() => handleVerify(user)}
-                    >
-                      Verify
-                    </Button>
-                  </HStack>
-                ))
-              ) : (
-                <Text>No matching users found.</Text>
-              )}
-            </Box>
           </Box>
 
-          <Box
-            w="48%"
-            p={4}
-            borderWidth={1}
-            borderRadius="md"
-            h="404px"
-            bg="white"
-          >
-            <HStack spacing={2}>
-              <FaUsersCog size={24} color="blue" />
-              <Text fontSize="lg" fontWeight="bold">
-                Assign Role
-              </Text>
-            </HStack>
+          <Box maxH="340px" overflowY="auto" px={4} pb={4}>
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
+                <Box
+                  key={user.username}
+                  p={3}
+                  mb={2}
+                  borderRadius="lg"
+                  border="1px solid"
+                  borderColor="gray.100"
+                  _hover={{ bg: "gray.50", borderColor: "purple.100" }}
+                  transition="all 0.15s"
+                >
+                  <Flex justify="space-between" alignItems="center">
+                    <VStack align="start" spacing={0.5}>
+                      <Text fontSize="13px" fontWeight="600" color="gray.800">{user.username}</Text>
+                      <Text fontSize="12px" color="gray.500">{user.email}</Text>
+                      {user.registered && (
+                        <Text fontSize="11px" color="gray.400">
+                          Registered: {user.registered}
+                        </Text>
+                      )}
+                    </VStack>
+                    <Button
+                      size="xs"
+                      colorScheme="purple"
+                      variant="outline"
+                      borderRadius="full"
+                      fontSize="12px"
+                      onClick={() => handleVerify(user)}
+                    >
+                      Select
+                    </Button>
+                  </Flex>
+                </Box>
+              ))
+            ) : (
+              <Box py={8} textAlign="center">
+                <Text fontSize="sm" color="gray.400">No matching users found.</Text>
+              </Box>
+            )}
+          </Box>
+        </Box>
 
-            <Input
-              placeholder="Email"
-              name="email"
-              my={5}
-              value={verify.email}
-              onChange={handleInput}
-            />
+        {/* Right: Assign Role */}
+        <Box
+          flex="1"
+          bg="white"
+          borderRadius="xl"
+          border="1px solid"
+          borderColor="gray.200"
+          boxShadow="sm"
+          overflow="hidden"
+        >
+          <Flex px={4} py={3} alignItems="center" gap={2} borderBottom="1px solid" borderColor="gray.100">
+            <FaUsersCog size={18} color="#6366f1" />
+            <Text fontWeight="600" fontSize="sm" color="gray.700">Assign Role</Text>
+          </Flex>
 
-            <Select
-              name="role"
-              my={5}
-              value={verify.role}
-              onChange={handleInput}
-            >
-              <option value="">Select Role</option>
-              <option value="Lab_Assistance">Lab_Assistance</option>
-              <option value="Lab_Incharge">Lab_Incharge</option>
-            </Select>
+          <VStack px={5} py={5} spacing={4} align="stretch">
+            <Box>
+              <Text fontSize="12px" fontWeight="600" color="gray.500" textTransform="uppercase" letterSpacing="wider" mb={1.5}>Email</Text>
+              <Input
+                placeholder="User email"
+                name="email"
+                size="sm"
+                value={verify.email}
+                onChange={handleInput}
+                borderRadius="lg"
+                fontSize="13px"
+                border="1px solid"
+                borderColor="gray.200"
+                _focus={{ borderColor: "purple.400", boxShadow: "0 0 0 3px rgba(99,102,241,0.08)" }}
+              />
+            </Box>
 
-            <Input
-              placeholder="Room Number"
-              my={7}
-              name="LabId"
-              value={verify.LabId}
-              onChange={handleInput}
-            />
+            <Box>
+              <Text fontSize="12px" fontWeight="600" color="gray.500" textTransform="uppercase" letterSpacing="wider" mb={1.5}>Role</Text>
+              <Select
+                name="role"
+                size="sm"
+                value={verify.role}
+                onChange={handleInput}
+                borderRadius="lg"
+                fontSize="13px"
+                border="1px solid"
+                borderColor="gray.200"
+                _focus={{ borderColor: "purple.400", boxShadow: "0 0 0 3px rgba(99,102,241,0.08)" }}
+              >
+                <option value="">Select Role</option>
+                <option value="Lab_Assistance">Lab Assistance</option>
+                <option value="Lab_Incharge">Lab Incharge</option>
+              </Select>
+            </Box>
+
+            <Box>
+              <Text fontSize="12px" fontWeight="600" color="gray.500" textTransform="uppercase" letterSpacing="wider" mb={1.5}>Room Number</Text>
+              <Input
+                placeholder="e.g., LAB-101"
+                name="LabId"
+                size="sm"
+                value={verify.LabId}
+                onChange={handleInput}
+                borderRadius="lg"
+                fontSize="13px"
+                border="1px solid"
+                borderColor="gray.200"
+                _focus={{ borderColor: "purple.400", boxShadow: "0 0 0 3px rgba(99,102,241,0.08)" }}
+              />
+            </Box>
 
             <Button
-              colorScheme="blue"
+              colorScheme="purple"
               isDisabled={!verify.email}
               w="full"
+              size="sm"
+              borderRadius="xl"
+              h="40px"
+              fontSize="13px"
+              fontWeight="600"
               onClick={handleSubmit}
             >
               <HStack spacing={2} justify="center">
-                <FaUsersCog size={24} color="white" />
-                <Text>Assign Role</Text>
+                <FaUsersCog size={15} />
+                <Text>Assign Role & Verify</Text>
               </HStack>
             </Button>
-          </Box>
-        </HStack>
-      </VStack>
-    </Flex>
+          </VStack>
+        </Box>
+      </HStack>
+    </Box>
   );
 }

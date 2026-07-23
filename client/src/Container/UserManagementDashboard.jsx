@@ -18,29 +18,47 @@ const UserManagementDashboard = () => {
     }
   };
 
+  const tabs = [
+    { key: "ApprovedUsers", label: "Verified Users" },
+    { key: "AssignUser", label: "Assign Roles" },
+  ];
+
   return (
     <div className="second-home-container">
       <div className="sidebar-container">
         <SidebarMenu />
       </div>
-      <div className="min-h-screen bg-gray-100">
-        <div className="content-container">
-          <div className="tabs">
-            <button
-              className={`tab ${activeTab === "ApprovedUsers" ? "active" : ""}`}
-              onClick={() => setActiveTab("ApprovedUsers")}
-            >
-              ApprovedUsers
-            </button>
-            <button
-              className={`tab ${activeTab === "AssignUser" ? "active" : ""}`}
-              onClick={() => setActiveTab("AssignUser")}
-            >
-              AssignUser
-            </button>
-          </div>
 
-          <div className="form-content">{renderTabContent()}</div>
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+        {/* Top Bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "0 28px",
+            height: 60,
+            background: "#ffffff",
+            borderBottom: "1px solid var(--surface-border)",
+            position: "sticky",
+            top: 0,
+            zIndex: 20,
+            gap: 2,
+          }}
+        >
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              className={`tab ${activeTab === tab.key ? "active" : ""}`}
+              onClick={() => setActiveTab(tab.key)}
+              style={{ borderBottom: "none", padding: "0 16px", height: 60 }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ flex: 1, overflow: "auto" }}>
+          {renderTabContent()}
         </div>
       </div>
     </div>
