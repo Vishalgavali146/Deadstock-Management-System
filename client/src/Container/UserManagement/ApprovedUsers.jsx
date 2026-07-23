@@ -31,7 +31,7 @@ function ApprovedUsers() {
   const fetchVerifiedUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/AppUsers", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/AppUsers`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(response.data);

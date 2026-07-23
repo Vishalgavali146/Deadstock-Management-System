@@ -84,7 +84,7 @@ function Approval() {
     if (!token) return;
 
     try {
-      const response = await axios.get("http://localhost:5000/getBudget", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/getBudget`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

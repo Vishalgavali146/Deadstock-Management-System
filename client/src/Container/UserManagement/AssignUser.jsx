@@ -42,7 +42,7 @@ export default function AssignUser() {
       return;
     }
     try {
-      const response = await axios.get("http://localhost:5000/Requests", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/Requests`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data && Array.isArray(response.data.pendingRequests)) {
@@ -94,7 +94,7 @@ export default function AssignUser() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/ApproveRequest",
+        `${import.meta.env.VITE_API_BASE_URL}/ApproveRequest`,
         verify,
         { headers: { Authorization: `Bearer ${token}` } }
       );

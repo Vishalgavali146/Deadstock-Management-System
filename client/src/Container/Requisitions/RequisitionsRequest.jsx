@@ -24,7 +24,7 @@ function RequisitionsRequest() {
         const decoded = jwtDecode(token);
         setUserRole(decoded.role);
       }
-      const response = await axios.get("http://localhost:5000/RequisitionsRequest", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/RequisitionsRequest`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       console.log(response);
@@ -43,7 +43,7 @@ function RequisitionsRequest() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/requisitions/${id}/approve`,
+        `${import.meta.env.VITE_API_BASE_URL}/requisitions/${id}/approve`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

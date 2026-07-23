@@ -40,7 +40,7 @@ export default function InComingApproved() {
           console.error("No token found");
           return;
         }
-        const response = await axios.get("http://localhost:5000/ApprovebyRole", {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/ApprovebyRole`, {
           headers: { Authorization: `Bearer ${token}` },
           timeout: 15000,
         });

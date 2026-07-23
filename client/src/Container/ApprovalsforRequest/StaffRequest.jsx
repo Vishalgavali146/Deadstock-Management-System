@@ -35,7 +35,7 @@ function StaffRequest() {
         setUserRole(decoded.role);
       }
       const response = await axios.get(
-        "http://localhost:5000/approver-requests",
+        `${import.meta.env.VITE_API_BASE_URL}/approver-requests`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -58,7 +58,7 @@ function StaffRequest() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/approve/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/approve/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

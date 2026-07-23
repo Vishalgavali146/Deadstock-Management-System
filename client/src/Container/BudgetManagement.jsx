@@ -44,7 +44,7 @@ function BudgetManagement() {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const response = await axios.get("http://localhost:5000/getBudget", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/getBudget`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const fetchedBudget = response.data.msg || {};
@@ -64,7 +64,7 @@ function BudgetManagement() {
     if (!token) { alert("No token provided"); return; }
     try {
       const response = await axios.put(
-        "http://localhost:5000/updateBudget",
+        `${import.meta.env.VITE_API_BASE_URL}/updateBudget`,
         budget,
         { headers: { Authorization: `Bearer ${token}` } }
       );

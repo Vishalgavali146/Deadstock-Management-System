@@ -47,7 +47,7 @@ export default function AllocatedItems() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5000/department/lab/equipments`,
+        `${import.meta.env.VITE_API_BASE_URL}/department/lab/equipments`,
         {
           headers: { Authorization: `Bearer ${token}` },
           timeout: 15000,

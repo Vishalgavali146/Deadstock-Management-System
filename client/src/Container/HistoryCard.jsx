@@ -25,7 +25,7 @@ const HistoryCard = () => {
     if (rowvalues && rowvalues._id) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/equipment/history/${rowvalues._id}`
+          `${import.meta.env.VITE_API_BASE_URL}/equipment/history/${rowvalues._id}`
         );
         const historyArray = response.data.history.map((item) =>
           HistoryCardTable.map((header) => item[header] || "N/A")
@@ -67,7 +67,7 @@ const HistoryCard = () => {
     try {
       console.log("Submitting payload:", rowObj);
       const response = await axios.post(
-        `http://localhost:5000/equipment/history/${rowvalues._id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/equipment/history/${rowvalues._id}`,
         rowObj
       );
       console.log("History card added", response.data);

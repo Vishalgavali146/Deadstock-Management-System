@@ -61,7 +61,7 @@ export default function InComingRequest() {
       }
       try {
         const response = await axios.get(
-          "http://localhost:5000/pending-requests",
+          `${import.meta.env.VITE_API_BASE_URL}/pending-requests`,
           {
             headers: { Authorization: `Bearer ${token}` },
             timeout: 15000,
@@ -88,7 +88,7 @@ export default function InComingRequest() {
     try {
       const { dsrNo } = rowData;
       const response = await axios.post(
-        `http://localhost:5000/requests/dsr/${encodeURIComponent(dsrNo)}/RoleApproval`,
+        `${import.meta.env.VITE_API_BASE_URL}/requests/dsr/${encodeURIComponent(dsrNo)}/RoleApproval`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

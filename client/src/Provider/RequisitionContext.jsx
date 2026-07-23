@@ -150,7 +150,7 @@ export const RequisitionProvider = ({ children }) => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/submit",
+        `${import.meta.env.VITE_API_BASE_URL}/submit`,
         updatedRequisitionData,
         {
           headers: { Authorization: `Bearer ${token}` },

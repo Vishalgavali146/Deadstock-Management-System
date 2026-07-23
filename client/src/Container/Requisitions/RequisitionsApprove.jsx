@@ -25,7 +25,7 @@ function RequisitionsApprove() {
           const decoded = jwtDecode(token);
           setUserRole(decoded.role);
         }
-        const response = await axios.get("http://localhost:5000/api/requisitions", {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/requisitions`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setRequisitions(response.data);

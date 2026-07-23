@@ -39,7 +39,7 @@ export default function ThirdContainer() {
     e.stopPropagation();
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/equipment/toggle/${equipment._id}`
+        `${import.meta.env.VITE_API_BASE_URL}/api/equipment/toggle/${equipment._id}`
       );
       const updatedEquipment = response.data.equipment;
       setEquipments((prev) =>

@@ -35,7 +35,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/Register",
+        `${import.meta.env.VITE_API_BASE_URL}/Register`,
         userdata,
         {
           headers: { "Content-Type": "application/json" },
