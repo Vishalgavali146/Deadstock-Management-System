@@ -112,7 +112,7 @@ const SidebarMenu = () => {
             "DSR_Incharge",
             "HOD",
             "Lab_Incharge",
-            "Lab_Assistance",
+            "Staff",
           ].some((r) =>
             [decoded?.role].includes(r)
           ) && (
@@ -142,6 +142,15 @@ const SidebarMenu = () => {
                     icon={<CheckSquare size={17} />}
                     label="Staff Approvals"
                     active={isActive("/ApprovalsforRequest")}
+                  />
+                )}
+
+                {["Staff"].includes(decoded?.role) && (
+                  <NavItem
+                    to="/StaffRequisitions"
+                    icon={<FolderOpen size={17} />}
+                    label="Requisitions"
+                    active={isActive("/StaffRequisitions")}
                   />
                 )}
 

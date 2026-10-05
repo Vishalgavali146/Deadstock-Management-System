@@ -161,7 +161,7 @@ function GeneralDetails() {
                   value={generalDetails.category || ""}
                   onChange={(e) => handleChange("category", e.target.value)}
                 >
-                  <option value="Equipments">Equipments</option>
+                  <option value="Equipment">Equipment</option>
                   <option value="Furniture">Furniture</option>
                   <option value="Consumables">Consumables</option>
                 </Select>

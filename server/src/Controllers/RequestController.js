@@ -15,9 +15,11 @@ export const RequestApprove = async (req, res) => {
       return res.status(400).json({ message: "Request already processed." });
     }
 
-    const existingUser = await User.findOne({ LabId, role, status: "Approved" });
-    if (existingUser) {
-      return res.status(400).json({ message: `Lab ${LabId} is already allocated to a user with role ${role}.` });
+    if (role !== "Staff") {
+      const existingUser = await User.findOne({ LabId, role, status: "Approved" });
+      if (existingUser) {
+        return res.status(400).json({ message: `Lab ${LabId} is already allocated to a user with role ${role}.` });
+      }
     }
 
 

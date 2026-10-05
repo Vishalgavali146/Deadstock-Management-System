@@ -149,7 +149,7 @@ function Approval() {
               <HStack>
                 <FormControl>
                   <FormLabel fontWeight="bold">Sanction Budget</FormLabel>
-                  <Input value={approval.SanctionBudget || ""} isReadOnly />
+                  <Input value={approval.SanctionBudget ?? ""} isReadOnly />
                 </FormControl>
                 <FormControl>
                   <FormLabel fontWeight="bold">Amount Spent</FormLabel>

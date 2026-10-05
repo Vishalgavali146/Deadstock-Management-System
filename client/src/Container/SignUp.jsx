@@ -176,7 +176,7 @@ const SignUp = () => {
                 name="email"
                 id="email"
                 value={userdata.email}
-                placeholder="you@pict.edu"
+                placeholder="xyz@gmail.com"
                 required
                 autoComplete="email"
                 onChange={handleInput}
@@ -225,9 +225,13 @@ const SignUp = () => {
                 }}
               >
                 <option value="">Select Department</option>
-                <option value="ENTC">ENTC</option>
+                
                 <option value="CS">CS</option>
                 <option value="IT">IT</option>
+                <option value="AIDS">AIDS</option>
+                <option value="ECE">ECE</option>
+                <option value="ENTC">ENTC</option>
+                
               </select>
             </div>
 

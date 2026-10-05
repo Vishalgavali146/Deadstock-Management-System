@@ -85,7 +85,7 @@ export default function AllocationStatistics() {
       }
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/department/equipment`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/department/${statisticsData.department}/lab/${statisticsData.labNo}/equipment`,
         statisticsData,
         {
           headers: { Authorization: `Bearer ${token}` },

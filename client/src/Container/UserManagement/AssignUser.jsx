@@ -260,6 +260,7 @@ export default function AssignUser() {
               >
                 <option value="">Select Role</option>
                 <option value="Lab_Assistance">Lab Assistance</option>
+                <option value="Staff">Staff</option>
                 <option value="Lab_Incharge">Lab Incharge</option>
               </Select>
             </Box>

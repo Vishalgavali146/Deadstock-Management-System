@@ -29,14 +29,27 @@ export const getRequisitions = async (req, res) => {
     else if (role === "HOD") {
       requisitions = await Requisition.find({
         StatusHOD: "Pending",
-        "generalDetails.staffstatus": "Approved",
+        StatusStaff: "Approved",
         StatusLabIncharge: "Approved",
         "generalDetails.from" : departmentId
       })
     }
+    else if (role === "Staff") {
+      const { email } = req.user;
+      // Staff sees requisitions for their assigned lab where StatusStaff is still Pending
+      // AND where the Lab Assistant specifically requested them via approverEmail
+      requisitions = await Requisition.find({
+        StatusStaff: "Pending",
+        "generalDetails.roomNo": labId,
+        "generalDetails.from": departmentId,
+        "generalDetails.approverEmail": email,
+      });
+    }
     else if (role === "Lab_Incharge") {
+      // Lab Incharge only sees requisitions AFTER Staff has approved
       requisitions = await Requisition.find({
         StatusLabIncharge: "Pending",
+        StatusStaff: "Approved",
         "generalDetails.roomNo": labId
       })
     }
@@ -105,6 +118,8 @@ export const approveRequisitionByRole = async (req, res) => {
       }
     } else if (userRole === "DSR_Incharge") {
       updateData.StatusDSR = "Approved";
+    } else if (userRole === "Staff") {
+      updateData.StatusStaff = "Approved";
     } else if (userRole === "Lab_Incharge") {
       updateData.StatusLabIncharge = "Approved";
     } else if (userRole === "HOD") {
@@ -154,7 +169,14 @@ export const getRequisitionsApproved = async (req, res) => {
         "generalDetails.roomNo": labId,
         StatusLabIncharge: "Approved",
       });
-    }else {
+    }
+    else if (role === "Staff") {
+      // All staff members of the lab can see fully approved DSR reports
+      requisitions = await Requisition.find({
+        "generalDetails.roomNo": labId,
+        Status: "Approved", // Fully approved by Central DSR
+      });
+    } else {
       return res.status(403).json({ error: "Access denied" });
     }
     console.log("requisitions" , requisitions);

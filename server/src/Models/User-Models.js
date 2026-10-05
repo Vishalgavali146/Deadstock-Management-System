@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
             enum: [
                 "Lab_Assistance",
                 "Lab_Incharge",
+                "Staff",
                 "DSR_Incharge",
                 "HOD",
                 "Central_DSR_Incharge",

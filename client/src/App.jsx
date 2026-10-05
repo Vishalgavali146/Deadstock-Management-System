@@ -16,6 +16,7 @@ import UserManagementDashboard from "./Container/UserManagementDashboard.jsx";
 import BudgetManagement from "./Container/BudgetManagement.jsx";
 import RequisitionsRequest from "./Container/Requisitions.jsx";
 import RequisitionDetails from "./Container/Requisitions/RequisitionDetails.jsx";
+import StaffRequisitions from "./Container/StaffRequisitions.jsx";
 
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
@@ -130,15 +131,26 @@ function App() {
             />
 
             <Route
+            path="/StaffRequisitions"
+            element={
+              <ProtectedRoute
+                element={<StaffRequisitions />}
+                allowedRoles={["Staff"]}
+              />
+            }
+            />
+
+            <Route
             path="/requisition/:id"
             element={
               <ProtectedRoute
                 element={<RequisitionDetails />}
                 allowedRoles={["Central_DSR_Incharge", "Lab_Assistance" , "DSR_Incharge" , "HOD",
-              "Lab_Incharge",]} 
+              "Lab_Incharge", "Staff",]} 
               />
             }
           />
+
 
       </Routes>
       </BrowserRouter>

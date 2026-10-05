@@ -28,15 +28,15 @@ export const updateBudget = async (req, res) => {
       return res.status(400).json({ message: "Department not found in token" });
     }
 
-    const { equipment, furniture, consumables , SanctionBudget } = req.body;
+    const { equipment, furniture, consumables , SanctionAmount } = req.body;
     if (isNaN(equipment) || isNaN(furniture) || isNaN(consumables)) {
       return res.status(400).json({ message: "Invalid budget values" });
     }
 
    const updatedDepartment = await Department.findOneAndUpdate(
     { departmentCode: departmentId },
-    { $set: { "budget.equipment": equipment, "budget.furniture": furniture, "budget.consumables": consumables , "budget.SanctionAmount" : SanctionBudget} },
-    { new: true }
+    { $set: { "budget.equipment": equipment, "budget.furniture": furniture, "budget.consumables": consumables , "budget.SanctionAmount" : SanctionAmount} },
+    { returnDocument: 'after' }
   );
 
     if (!updatedDepartment) {

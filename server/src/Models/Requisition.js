@@ -63,6 +63,11 @@ const RequisitionSchema = new mongoose.Schema({
     enum: ["Pending", "Approved", "Rejected"],
     default: "Pending",
   },
+  StatusStaff: {
+    type: String,
+    enum: ["Pending", "Approved", "Rejected"],
+    default: "Pending",
+  },
   StatusHOD: {
     type: String,
     enum: ["Pending", "Approved", "Rejected"],

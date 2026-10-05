@@ -51,27 +51,29 @@ export const getEquipmentForLab = async (req, res) => {
 
     let labs = [];
 
-    if (role === "HOD") {
+    const fullAccessRoles = ["HOD", "DSR_Incharge", "Central_DSR_Incharge"];
+
+    if (fullAccessRoles.includes(role)) {
       labs = department.labs.map((lab) => ({
-      labName: lab.labName,
-      equipments: lab.equipments,
+        labName: lab.labName,
+        equipments: lab.equipments,
       }));   
     }
     
     else {
       labs = department.labs
-      .filter((lab) => lab.labNo === labId)
-      .map((lab) => ({
-      labName: lab.labName,
-      equipments: lab.equipments,
-    }));
+        .filter((lab) => lab.labNo === labId)
+        .map((lab) => ({
+          labName: lab.labName,
+          equipments: lab.equipments,
+        }));
 
-    if (labs.length === 0) {
-      return res.status(404).json({
-        error: `Lab '${labId}' not found in department '${departmentId}'`,
-      });
+      if (labs.length === 0) {
+        return res.status(404).json({
+          error: `Lab '${labId}' not found in department '${departmentId}'`,
+        });
+      }
     }
-  }
 
     return res.status(200).json({ labs });
   } catch (error) {
